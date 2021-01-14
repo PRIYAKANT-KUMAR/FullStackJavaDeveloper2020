@@ -33,4 +33,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	@Query("select new com.hcl.springboot.dto.EmployeeDto(age, count(*)) from Employee where age=:age")
 	List<EmployeeDto> getCustomEmployee(@Param("age") Integer age);
 
+	@Modifying
+	@Query(value = "UPDATE employee SET address =:address where first_name =:firstName", nativeQuery = true)
+	Integer updateEmployeeByFirstName(@Param("address") String address, @Param("firstName") String firstName);
+
 }

@@ -1,7 +1,7 @@
-C:\work\ws\JavaFullStack2020\HCLSpringBootApp2\src\main\java\com\hcl\springboot\controller\EmployeeController.java
-C:\work\ws\JavaFullStack2020\HCLSpringBootApp2\src\main\java\com\hcl\springboot\service\IEmployeeService.java
-C:\work\ws\JavaFullStack2020\HCLSpringBootApp2\src\main\java\com\hcl\springboot\dto\EmployeeDto.java
-C:\work\ws\JavaFullStack2020\HCLSpringBootApp2\src\main\java\com\hcl\springboot\entity\Employee.java
-C:\work\ws\JavaFullStack2020\HCLSpringBootApp2\src\main\java\com\hcl\springboot\repository\EmployeeRepository.java
-C:\work\ws\JavaFullStack2020\HCLSpringBootApp2\src\main\java\com\hcl\springboot\HclSpringBootApp2Application.java
-C:\work\ws\JavaFullStack2020\HCLSpringBootApp2\src\main\java\com\hcl\springboot\service\impl\EmployeeServiceImpl.java
+C:\Users\ms\git\repository\HCLSpringBootApp2\src\main\java\com\hcl\springboot\controller\EmployeeController.java
+C:\Users\ms\git\repository\HCLSpringBootApp2\src\main\java\com\hcl\springboot\dto\EmployeeDto.java
+C:\Users\ms\git\repository\HCLSpringBootApp2\src\main\java\com\hcl\springboot\repository\EmployeeRepository.java
+C:\Users\ms\git\repository\HCLSpringBootApp2\src\main\java\com\hcl\springboot\service\IEmployeeService.java
+C:\Users\ms\git\repository\HCLSpringBootApp2\src\main\java\com\hcl\springboot\service\impl\EmployeeServiceImpl.java
+C:\Users\ms\git\repository\HCLSpringBootApp2\src\main\java\com\hcl\springboot\entity\Employee.java
+C:\Users\ms\git\repository\HCLSpringBootApp2\src\main\java\com\hcl\springboot\HclSpringBootApp2Application.java

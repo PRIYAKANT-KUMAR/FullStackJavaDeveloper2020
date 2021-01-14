@@ -20,10 +20,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	EmployeeRepository employeeRepository;
 
 	@Override
+	@Transactional
 	public void saveEmployee(Employee employee) {
 		employeeRepository.save(employee);
 	}
-	
+
 	@Override
 	public List<Employee> getEmployees() {
 		return employeeRepository.findAll();
@@ -68,7 +69,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	@Transactional
-	public Integer updateEmployee(Integer age, Integer salary, Long id) {		
+	public Integer updateEmployee(Integer age, Integer salary, Long id) {
 		return employeeRepository.updateEmployee(age, salary, id);
 	}
 
@@ -76,7 +77,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	@Transactional
 	public void deleteEmployee(Long id) {
 		employeeRepository.deleteById(id);
-		//return employeeRepository.deleteEmployee(id);
 	}
 
 	@Override
@@ -84,5 +84,16 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		return employeeRepository.getCustomEmployee(age);
 	}
 
-	
+	@Override
+	@Transactional
+	public Integer updateEmployeeByFirstName(String address, String firstName) {
+		return employeeRepository.updateEmployeeByFirstName(address, firstName);
+	}
+
+	@Override
+	@Transactional
+	public List<Employee> saveEmployees(List<Employee> employees) {
+		return employeeRepository.saveAll(employees);
+	}
+
 }

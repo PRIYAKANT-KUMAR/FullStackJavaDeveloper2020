@@ -27,4 +27,10 @@ public interface IEmployeeService {
 
 	public List<EmployeeDto> getCustomEmployee(Integer age);
 
+	public Integer updateEmployeeByFirstName(String address, String firstName);
+
+	public List<Employee> saveEmployees(List<Employee> employees);
+
+	
+
 }
