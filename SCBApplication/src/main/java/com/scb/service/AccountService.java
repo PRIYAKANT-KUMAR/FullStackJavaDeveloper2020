@@ -1,9 +1,15 @@
 package com.scb.service;
 
-import com.scb.dto.FundTransfer;
+import java.math.BigDecimal;
+
+import com.scb.entity.Account;
 
 public interface AccountService {
-
-	//void sendMoney(FundTransfer fundTransfer);
+	
+	String sendMoney(Integer fromAccount, Integer toAccount, BigDecimal amount);
+	
+	Account updateAccount(Account account);
+	
+	Account getAccountByAccountNumber(Integer accountNumber);
 
 }

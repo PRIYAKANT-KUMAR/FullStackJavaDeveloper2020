@@ -1,5 +1,6 @@
 package com.scb.service.impl;
 
+import java.time.LocalDate;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Account account = new Account();
 		account.setAccountNumber(accountNumber);
 		account.setBalance(customer.getAccount().getBalance());
-		account.setOpenDate(customer.getAccount().getOpenDate());
+		account.setOpenDate(LocalDate.now().toString());
 		customer.setAccount(account);
 
 		customerRepository.save(customer);

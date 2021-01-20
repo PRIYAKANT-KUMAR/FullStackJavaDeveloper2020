@@ -1,7 +1,6 @@
 com\scb\entity\Account.class
 com\scb\service\impl\CustomerServiceImpl.class
 com\scb\entity\Account$AccountBuilder.class
-com\scb\dto\FundTransfer.class
 com\scb\service\AccountService.class
 com\scb\entity\Customer$CustomerBuilder.class
 com\scb\service\impl\AccountServiceImpl.class
@@ -9,7 +8,7 @@ com\scb\ScbApplication.class
 com\scb\controller\AccountController.class
 com\scb\entity\ACTransaction.class
 com\scb\exception\AccountExceptioHandler.class
-com\scb\dto\Statement.class
+com\scb\dto\StatementRequest.class
 com\scb\repository\CustomerRepository.class
 com\scb\service\StatementService.class
 com\scb\controller\CustomerController.class
@@ -18,4 +17,5 @@ com\scb\entity\Customer.class
 com\scb\service\impl\StatementServiceImpl.class
 com\scb\repository\AccountRepository.class
 com\scb\repository\StatementRepository.class
+com\scb\dto\FundTransferRequest.class
 com\scb\service\CustomerService.class
