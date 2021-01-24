@@ -3,6 +3,8 @@ package com.scb.service.impl;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,27 +25,35 @@ public class AccountServiceImpl implements AccountService {
 		Account account1 = this.getAccountByAccountNumber(fromAccount);
 		Account account2 = this.getAccountByAccountNumber(toAccount);
 
-		BigDecimal fromBalance = account1.getBalance().subtract(amount);
-		BigDecimal toBalance = account2.getBalance().add(amount);
+		if (account1.getBalance().compareTo(amount) == 1) {
+			BigDecimal fromBalance = account1.getBalance().subtract(amount);
+			BigDecimal toBalance = account2.getBalance().add(amount);
 
-		ACTransaction tx1 = new ACTransaction();
-		tx1.setTxType("Debit");
-		tx1.setTxDate(LocalDateTime.now());
+			ACTransaction tx1 = accountRepository.findByAccountId(account1.getAccountId());
+			tx1.setTxType("Debit");
+			tx1.setTxDate(LocalDateTime.now());
 
-		ACTransaction tx2 = new ACTransaction();
-		tx2.setTxType("Credit");
-		tx2.setTxDate(LocalDateTime.now());
+			ACTransaction tx2 = accountRepository.findByAccountId(account2.getAccountId());
+			tx2.setTxType("Credit");
+			tx2.setTxDate(LocalDateTime.now());
 
-		account1.setBalance(fromBalance);
-		account2.setBalance(toBalance);
+			account1.setBalance(fromBalance);
+			account2.setBalance(toBalance);
 
-		account1.getAcTransaction().add(tx1);
-		account2.getAcTransaction().add(tx2);
+			account1.getAcTransaction().add(tx1);
+			account2.getAcTransaction().add(tx2);
 
-		this.updateAccount(account1);
-		this.updateAccount(account2);
+			this.updateAccount(account1);
 
-		return "Transaction Success";
+			System.out.println("Source Account updated");
+			this.updateAccount(account2);
+			System.out.println("Destination Account updated");
+
+			return "Transaction Success";
+		} else {
+			return "Insufficient Balance";
+		}
+
 	}
 
 	@Override
@@ -51,10 +61,11 @@ public class AccountServiceImpl implements AccountService {
 		return accountRepository.getAccountByAccountNumber(accountNumber);
 	}
 
+	@Transactional
 	@Override
-	public Account updateAccount(Account account) {
-		
-		return accountRepository.save(account);
+	public void updateAccount(Account account) {
+
+		accountRepository.updateAccount(account.getAccountId(), account.getBalance());
 	}
 
 }

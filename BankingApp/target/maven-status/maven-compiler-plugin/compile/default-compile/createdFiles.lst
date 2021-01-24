@@ -1,0 +1,17 @@
+com\bank\BankingAppApplication.class
+com\bank\entity\AccountDetail.class
+com\bank\service\StatementService.class
+com\bank\exception\BankExceptionHandler.class
+com\bank\repo\FundTransferRepository.class
+com\bank\repo\StatementRepository.class
+com\bank\entity\UserDetail.class
+com\bank\controller\StatementController.class
+com\bank\service\FundTransferService.class
+com\bank\service\UserService.class
+com\bank\controller\FundTransferController.class
+com\bank\service\impl\FundTransferServiceImpl.class
+com\bank\entity\TransactionDetail.class
+com\bank\service\impl\UserServiceImpl.class
+com\bank\repo\UserRepository.class
+com\bank\service\impl\StatementServiceImpl.class
+com\bank\controller\UserController.class
