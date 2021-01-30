@@ -19,8 +19,8 @@ public class FundTransferController {
 	private FundTransferService fundTransferService;
 
 	@PutMapping("/send-money")
-	public ResponseEntity<String> sendMoney(@RequestParam("fromAccountNo") Integer fromAccountNo,
-			@RequestParam("toAccountNo") Integer toAccountNo, @RequestParam("amount") Integer amount,
+	public ResponseEntity<String> sendMoney(@RequestParam("fromAccountNo") String fromAccountNo,
+			@RequestParam("toAccountNo") String toAccountNo, @RequestParam("amount") Integer amount,
 			@RequestParam("remarks") String remarks) {
 		String message;
 		try {

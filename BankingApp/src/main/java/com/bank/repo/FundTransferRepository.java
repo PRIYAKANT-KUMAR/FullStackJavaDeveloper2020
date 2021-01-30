@@ -13,12 +13,12 @@ import com.bank.entity.AccountDetail;
 @Repository
 public interface FundTransferRepository extends JpaRepository<AccountDetail, Long> {
 
-	@Query("from AccountDetail where accountNo =:accountNo")
-	public AccountDetail findByAccountNo(@Param("accountNo")Integer accountNo);
+	@Query(value="select * from hcl_scb.account_detail where account_no =:accountNo", nativeQuery = true)
+	public AccountDetail findByAccountNo(@Param("accountNo")String accountNo);
 
 	@Transactional
 	@Query(value = "insert into transaction_detail (tx_account_no, amount, tx_date, tx_date_time, tx_type, remarks) values (:txAccountNo, :amount, :txDate, :txDateTime, :txType, :remarks)", nativeQuery = true)
-	public void saveTransactionDetails(@Param("txAccountNo") Integer txAccountNo, @Param("amount") Integer amount,
+	public void saveTransactionDetails(@Param("txAccountNo") String txAccountNo, @Param("amount") Integer amount,
 			@Param("txDate") LocalDate txDate, @Param("txDateTime") String txDateTime, @Param("txType") String txType,
 			@Param("remarks") String remarks);
 

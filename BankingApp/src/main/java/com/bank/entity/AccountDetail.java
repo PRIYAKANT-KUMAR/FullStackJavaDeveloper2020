@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -31,7 +33,7 @@ public class AccountDetail implements Serializable {
 
 	@NotNull(message = "account number can't be empty")
 	@Column(name = "account_no", unique = true)
-	private Integer accountNo;
+	private String accountNumber;
 
 	@NotNull(message = "account open date can't be empty")
 	@Column(name = "open_date")
@@ -47,30 +49,22 @@ public class AccountDetail implements Serializable {
 	@NotNull(message = "account status can't be empty")
 	private String status;
 
-	@OneToOne(mappedBy = "accountDetail", cascade = CascadeType.ALL)
+	//@OneToOne(mappedBy = "accountDetail", cascade = CascadeType.ALL)
+	@OneToOne
+    @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false, referencedColumnName = "user_id")
 	private UserDetail userDetail;
 
-	@PrePersist
-	void preInsert() {
-
-		if (this.accountNo == null) {
-			Random rand = new Random();
-			Integer accountNo = rand.nextInt(10000);
-			setAccountNo(accountNo);
-		}
-		if (this.openDate == null) {
-			setOpenDate(LocalDate.now().toString());
-		}
-		if (this.balance == null) {
-			setBalance(1000);
-		}
-		if (this.type == null) {
-			setType("saving");
-		}
-		if (this.status == null) {
-			setStatus("active");
-		}
-
-	}
+	/*
+	 * @PrePersist void preInsert() {
+	 * 
+	 * if (this.accountNo == null) { Random rand = new Random(); Integer accountNo =
+	 * rand.nextInt(10000); this.setAccountNo(String.valueOf(accountNo)); } if
+	 * (this.openDate == null) { this.setOpenDate(LocalDate.now().toString()); } if
+	 * (this.balance == null) { this.setBalance(1000); } if (this.type == null) {
+	 * this.setType("saving"); } if (this.status == null) {
+	 * this.setStatus("active"); }
+	 * 
+	 * }
+	 */
 
 }

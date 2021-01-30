@@ -31,6 +31,6 @@ public class TransactionDetail implements Serializable {
 	
 	@NotNull(message = "account number can't be empty")
 	@Column(name = "tx_account_no", unique = false)
-	private Integer txAccountNo;
+	private String txAccountNo;
 
 }

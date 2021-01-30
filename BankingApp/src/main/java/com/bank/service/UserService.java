@@ -4,6 +4,6 @@ import com.bank.entity.UserDetail;
 
 public interface UserService {
 	
-	public Integer registerUser(UserDetail userDetails);
+	public String registerUser(UserDetail userDetails);
 
 }

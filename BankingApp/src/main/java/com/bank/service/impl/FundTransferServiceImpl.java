@@ -23,20 +23,24 @@ public class FundTransferServiceImpl implements FundTransferService {
 	@Override
 	@Modifying
 	@Transactional
-	public Integer sendMoney(Integer fromAccountNo, Integer toAccountNo, Integer amount, String remarks)
-			throws BankExceptionHandler {
+	public Integer sendMoney(String fromAccountNo, String toAccountNo, Integer amount, String remarks) {
+		AccountDetail sourceAccountDetail = null;
 		if (fromAccountNo != toAccountNo) {
+			try {
+				sourceAccountDetail = fundTransferRepository.findByAccountNo(fromAccountNo);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 
-			AccountDetail sourceAccountDetail = fundTransferRepository.findByAccountNo(fromAccountNo);
 			AccountDetail destAccountDetail = fundTransferRepository.findByAccountNo(toAccountNo);
-			
-			if(sourceAccountDetail == null &&  destAccountDetail==null) {
+
+			if (sourceAccountDetail == null && destAccountDetail == null) {
 				throw new BankExceptionHandler("account number does not exist");
 			}
-			if(amount < 1) {
-					throw new BankExceptionHandler("amount should greater than 0");
+			if (amount < 1) {
+				throw new BankExceptionHandler("amount should greater than 0");
 			}
-				
+
 			if (sourceAccountDetail.getBalance() > amount) {
 				sourceAccountDetail.setBalance(sourceAccountDetail.getBalance() - amount);
 				destAccountDetail.setBalance(destAccountDetail.getBalance() + amount);
@@ -60,9 +64,15 @@ public class FundTransferServiceImpl implements FundTransferService {
 				fundTransferRepository.save(sourceAccountDetail);
 				fundTransferRepository.save(destAccountDetail);
 
-				fundTransferRepository.saveTransactionDetails(transactionDetail1.getTxAccountNo(),transactionDetail1.getAmount(), transactionDetail1.getTxDate(), transactionDetail1.getTxDateTime(),transactionDetail1.getTxType(), transactionDetail1.getRemarks());
-				fundTransferRepository.saveTransactionDetails(transactionDetail2.getTxAccountNo(),transactionDetail2.getAmount(), transactionDetail2.getTxDate(), transactionDetail2.getTxDateTime(),transactionDetail2.getTxType(), transactionDetail2.getRemarks());
-				
+				fundTransferRepository.saveTransactionDetails(transactionDetail1.getTxAccountNo(),
+						transactionDetail1.getAmount(), transactionDetail1.getTxDate(),
+						transactionDetail1.getTxDateTime(), transactionDetail1.getTxType(),
+						transactionDetail1.getRemarks());
+				fundTransferRepository.saveTransactionDetails(transactionDetail2.getTxAccountNo(),
+						transactionDetail2.getAmount(), transactionDetail2.getTxDate(),
+						transactionDetail2.getTxDateTime(), transactionDetail2.getTxType(),
+						transactionDetail2.getRemarks());
+
 			} else {
 
 				throw new BankExceptionHandler("Insufficient Balance in your account");

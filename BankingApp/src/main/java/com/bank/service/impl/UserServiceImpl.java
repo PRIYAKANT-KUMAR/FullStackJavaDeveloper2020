@@ -14,11 +14,11 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Override
-	public Integer registerUser(UserDetail userDetails) {
+	public String registerUser(UserDetail userDetails) {
 
 		UserDetail userDetail = userRepository.save(userDetails);
 
-		return userDetail.getAccountDetail().getAccountNo();
+		return userDetail.getAccountDetail().getAccountNumber();
 	}
 
 }

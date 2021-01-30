@@ -52,8 +52,9 @@ public class UserDetail implements Serializable {
 	@NotNull(message = "contact number can't be empty")
 	private String contact;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "account_no", referencedColumnName = "account_no")
+	//@OneToOne()//cascade = CascadeType.ALL
+	//@JoinColumn(name = "account_no")//, referencedColumnName = "account_no
+	@OneToOne(mappedBy = "userDetail", cascade = CascadeType.ALL)
 	private AccountDetail accountDetail;
 
 }

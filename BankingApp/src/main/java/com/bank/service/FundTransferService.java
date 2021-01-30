@@ -2,6 +2,6 @@ package com.bank.service;
 
 public interface FundTransferService {
 
-	public Integer sendMoney(Integer fromAccountNo, Integer toAccountNo, Integer amount, String remarks);
+	public Integer sendMoney(String fromAccountNo, String toAccountNo, Integer amount, String remarks);
 	
 }
