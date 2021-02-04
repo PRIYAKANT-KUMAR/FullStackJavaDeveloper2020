@@ -1,0 +1,8 @@
+com\sbms\bs\repo\BankUserRepo.class
+com\sbms\bs\repo\BankSwiggiRepo.class
+com\sbms\bs\entity\UserAccountDetail.class
+com\sbms\bs\controller\BankController.class
+com\sbms\bs\entity\SwiggiAccountDetail.class
+com\sbms\bs\service\BankService.class
+com\sbms\bs\service\impl\BankServiceImpl.class
+com\sbms\bs\BankServiceApplication.class
