@@ -18,10 +18,10 @@ public class StatementServiceImpl implements StatementService {
 	private StatementRepository statementRepository;
 
 	@Override
-	public List<TransactionDetail> getStatement(String startDate, String endDate, Integer accountNo) throws BankExceptionHandler{
+	public List<TransactionDetail> getStatement(LocalDate startDate, LocalDate endDate, int accountNo) throws BankExceptionHandler{
 
 		List<TransactionDetail> transactionDetails = null;
-		if (endDate.compareTo(LocalDate.now().toString()) == -1) {
+		if (endDate.isAfter(startDate) && endDate.isBefore(LocalDate.now()) ) {
 
 			if(!statementRepository.findTransactionDetailByAccountNo(accountNo)) {
 				throw new BankExceptionHandler("Invalid account number");

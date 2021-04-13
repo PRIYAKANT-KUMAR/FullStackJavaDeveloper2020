@@ -1,7 +1,9 @@
 package com.bank.service;
 
+import com.bank.entity.TransactionDetail;
+
 public interface FundTransferService {
 
-	public Integer sendMoney(String fromAccountNo, String toAccountNo, Integer amount, String remarks);
+	public TransactionDetail sendMoney(int fromAccountNo, int toAccountNo, int amount, String remarks);
 	
 }

@@ -21,7 +21,7 @@ public class UserController {
 	@PostMapping("/register-user")
 	public ResponseEntity<String> registerUser(@RequestBody UserDetail userDetails) {
 
-		String accountNumber = accountService.registerUser(userDetails);
+		Integer accountNumber = accountService.registerUser(userDetails);
 		String message = "Congratulation " + userDetails.getFirstName() + " " + userDetails.getLastName()
 				+ "! Your Bank Account has been created successfully and Account Number is " + accountNumber;
 		return new ResponseEntity<String>(message, HttpStatus.OK);

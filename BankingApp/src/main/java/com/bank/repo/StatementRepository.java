@@ -1,5 +1,6 @@
 package com.bank.repo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,8 +14,8 @@ import com.bank.entity.TransactionDetail;
 public interface StatementRepository extends JpaRepository<TransactionDetail, Long> {
 
 	@Query(value = "select * from transaction_detail where account_no=:accountNo and tx_date BETWEEN :startDate AND :endDate", nativeQuery = true)
-	List<TransactionDetail> findTransactionDetailByAccountNumberAndDateRange(@Param("startDate") String startDate,
-			@Param("endDate") String endDate, @Param("accountNo") Integer accountNo);
+	List<TransactionDetail> findTransactionDetailByAccountNumberAndDateRange(@Param("startDate") LocalDate startDate,
+			@Param("endDate") LocalDate endDate, @Param("accountNo") int accountNo);
 
 	@Query("from TransactionDetail where accountNo=:accountNo")
 	boolean findTransactionDetailByAccountNo(Integer accountNo);

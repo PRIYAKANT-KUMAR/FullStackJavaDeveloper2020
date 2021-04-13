@@ -1,5 +1,6 @@
 package com.bank.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +15,15 @@ import com.bank.entity.TransactionDetail;
 import com.bank.service.StatementService;
 
 @RestController
-@RequestMapping("/statement")
+@RequestMapping("/statements")
 public class StatementController {
 
 	@Autowired
 	private StatementService statementService;
 
 	@GetMapping("/stmt")
-	public ResponseEntity<List<TransactionDetail>> getStatement(@RequestParam("startDate") String startDate,
-			@RequestParam("endDate") String endDate, @RequestParam("accountNo") Integer accountNo) {
+	public ResponseEntity<List<TransactionDetail>> getStatement(@RequestParam("startDate") LocalDate startDate,
+			@RequestParam("endDate") LocalDate endDate, @RequestParam("accountNo") int accountNo) {
 
 		List<TransactionDetail> transactionDetails = statementService.getStatement(startDate, endDate, accountNo);
 

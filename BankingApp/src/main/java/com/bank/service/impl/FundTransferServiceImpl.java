@@ -12,6 +12,7 @@ import com.bank.entity.AccountDetail;
 import com.bank.entity.TransactionDetail;
 import com.bank.exception.BankExceptionHandler;
 import com.bank.repo.FundTransferRepository;
+import com.bank.repo.StatementRepository;
 import com.bank.service.FundTransferService;
 
 @Service
@@ -20,19 +21,24 @@ public class FundTransferServiceImpl implements FundTransferService {
 	@Autowired
 	private FundTransferRepository fundTransferRepository;
 
+	@Autowired
+	private StatementRepository statementRepository;
+
 	@Override
 	@Modifying
 	@Transactional
-	public Integer sendMoney(String fromAccountNo, String toAccountNo, Integer amount, String remarks) {
+	public TransactionDetail sendMoney(int fromAccountNo, int toAccountNo, int amount, String remarks) {
 		AccountDetail sourceAccountDetail = null;
+		AccountDetail destAccountDetail = null;
+		TransactionDetail transactionDetail;
 		if (fromAccountNo != toAccountNo) {
 			try {
 				sourceAccountDetail = fundTransferRepository.findByAccountNo(fromAccountNo);
-			} catch (Exception e) {
-				System.out.println(e);
+				destAccountDetail = fundTransferRepository.findByAccountNo(toAccountNo);
+			} catch (NullPointerException npe) {
+				throw new BankExceptionHandler(
+						fromAccountNo + " " + toAccountNo + " account number doesn't exist " + npe.getMessage());
 			}
-
-			AccountDetail destAccountDetail = fundTransferRepository.findByAccountNo(toAccountNo);
 
 			if (sourceAccountDetail == null && destAccountDetail == null) {
 				throw new BankExceptionHandler("account number does not exist");
@@ -49,7 +55,7 @@ public class FundTransferServiceImpl implements FundTransferService {
 				transactionDetail1.setTxAccountNo(fromAccountNo);
 				transactionDetail1.setAmount(amount);
 				transactionDetail1.setTxDate(LocalDate.now());
-				transactionDetail1.setTxDateTime(LocalDateTime.now().toString());
+				transactionDetail1.setTxDateTime(LocalDateTime.now());
 				transactionDetail1.setRemarks(remarks);
 				transactionDetail1.setTxType("Debit");
 
@@ -57,21 +63,15 @@ public class FundTransferServiceImpl implements FundTransferService {
 				transactionDetail2.setTxAccountNo(toAccountNo);
 				transactionDetail2.setAmount(amount);
 				transactionDetail2.setTxDate(LocalDate.now());
-				transactionDetail2.setTxDateTime(LocalDateTime.now().toString());
+				transactionDetail2.setTxDateTime(LocalDateTime.now());
 				transactionDetail2.setRemarks(remarks);
 				transactionDetail2.setTxType("Credit");
 
 				fundTransferRepository.save(sourceAccountDetail);
 				fundTransferRepository.save(destAccountDetail);
 
-				fundTransferRepository.saveTransactionDetails(transactionDetail1.getTxAccountNo(),
-						transactionDetail1.getAmount(), transactionDetail1.getTxDate(),
-						transactionDetail1.getTxDateTime(), transactionDetail1.getTxType(),
-						transactionDetail1.getRemarks());
-				fundTransferRepository.saveTransactionDetails(transactionDetail2.getTxAccountNo(),
-						transactionDetail2.getAmount(), transactionDetail2.getTxDate(),
-						transactionDetail2.getTxDateTime(), transactionDetail2.getTxType(),
-						transactionDetail2.getRemarks());
+				transactionDetail = statementRepository.save(transactionDetail1);
+				statementRepository.save(transactionDetail2);
 
 			} else {
 
@@ -83,7 +83,7 @@ public class FundTransferServiceImpl implements FundTransferService {
 			throw new BankExceptionHandler("source and destination account number are same");
 		}
 
-		return 12;
+		return transactionDetail;
 	}
 
 }

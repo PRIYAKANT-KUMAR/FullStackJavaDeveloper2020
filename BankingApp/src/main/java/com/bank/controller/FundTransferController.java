@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bank.entity.TransactionDetail;
 import com.bank.exception.BankExceptionHandler;
 import com.bank.service.FundTransferService;
 
@@ -19,14 +20,14 @@ public class FundTransferController {
 	private FundTransferService fundTransferService;
 
 	@PutMapping("/send-money")
-	public ResponseEntity<String> sendMoney(@RequestParam("fromAccountNo") String fromAccountNo,
-			@RequestParam("toAccountNo") String toAccountNo, @RequestParam("amount") Integer amount,
+	public ResponseEntity<String> sendMoney(@RequestParam("fromAccountNo") int fromAccountNo,
+			@RequestParam("toAccountNo") int toAccountNo, @RequestParam("amount") int amount,
 			@RequestParam("remarks") String remarks) {
 		String message;
 		try {
-			Integer transactionId = fundTransferService.sendMoney(fromAccountNo, toAccountNo, amount, remarks);
+			TransactionDetail transactionId = fundTransferService.sendMoney(fromAccountNo, toAccountNo, amount, remarks);
 
-			message = "Transaction Successfull for amount " + amount + " and your transaction id is " + transactionId;
+			message = "Transaction Successfull for amount " + amount + " and your transaction id is " + transactionId.getTxId();
 		} catch (BankExceptionHandler beh) {
 			message = beh.getMessage();
 		}

@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "user_detail")
+@Table(name = "USER_DETAIL")
 @Data
 public class UserDetail implements Serializable {
 
@@ -52,9 +52,8 @@ public class UserDetail implements Serializable {
 	@NotNull(message = "contact number can't be empty")
 	private String contact;
 
-	//@OneToOne()//cascade = CascadeType.ALL
-	//@JoinColumn(name = "account_no")//, referencedColumnName = "account_no
-	@OneToOne(mappedBy = "userDetail", cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_account_no", referencedColumnName = "account_no")
 	private AccountDetail accountDetail;
 
 }
